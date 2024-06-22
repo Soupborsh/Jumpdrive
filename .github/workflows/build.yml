@@ -23,6 +23,7 @@ jobs:
           - boot-oneplus-fajita.img
           - boot-xiaomi-surya-huaxing.img
           - boot-xiaomi-surya-tianma.img
+          - sourceparts-pocketpc.img.xz
 
     steps:
       - name: Installing dependencies
