@@ -52,7 +52,7 @@ Additional dependencies for the Purism Librem 5:
 - arm-none-eabi- toolchain
 - uuu
 
-Additional dependencies for the Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T:
+Additional dependencies for the Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T / POCO X3 NFC:
 - mkbootimg
 
 ```shell-session
