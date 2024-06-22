@@ -1,0 +1,50 @@
+name: Build Jumpdrive Images
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build Jumpdrive / ${{ matrix.jd_build }}
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        jd_build:
+          - pine64-pinephone.img.xz
+          - pine64-pinetab.img.xz
+          - purism-librem5.tar.xz
+          - boot-xiaomi-beryllium-tianma.img
+          - boot-xiaomi-beryllium-ebbg.img
+          - boot-oneplus-enchilada.img
+          - boot-oneplus-fajita.img
+          - boot-xiaomi-surya-huaxing.img
+          - boot-xiaomi-surya-tianma.img
+          - sourceparts-pocketpc.img.xz
+
+    steps:
+      - name: Installing dependencies
+        run: |
+          sudo apt-get install -y \
+            gcc-aarch64-linux-gnu \
+            gcc-arm-none-eabi     \
+            mtools                \
+            u-boot-tools          \
+            mkbootimg
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Building ${{ matrix.jd_build }}
+        run: |
+          pwd
+          make -j `nproc` ${{ matrix.jd_build }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.jd_build }}
+          path: ${{ matrix.jd_build }}

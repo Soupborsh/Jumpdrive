@@ -8,6 +8,7 @@ A swiss army knife for mobile devices, currently supporting:
 - Xiaomi Pocophone F1
 - OnePlus 6
 - OnePlus 6T
+- POCO X3 NFC (WIP)
 
 You can use this to flash a image **directly to eMMC**, troubleshooting a broken system, and a lot more.
 
@@ -51,7 +52,7 @@ Additional dependencies for the Purism Librem 5:
 - arm-none-eabi- toolchain
 - uuu
 
-Additional dependencies for the Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T:
+Additional dependencies for the Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T / POCO X3 NFC:
 - mkbootimg
 
 ```shell-session
