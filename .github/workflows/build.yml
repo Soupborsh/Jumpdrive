@@ -36,7 +36,7 @@ jobs:
             mkbootimg
 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Building ${{ matrix.jd_build }}
         run: |
