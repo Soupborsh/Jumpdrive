@@ -1,7 +1,7 @@
 CROSS_FLAGS = ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 CROSS_FLAGS_BOOT = CROSS_COMPILE=aarch64-linux-gnu-
 
-all: pine64-pinephone.img.xz pine64-pinetab.img.xz purism-librem5.tar.xz boot-xiaomi-beryllium-tianma.img boot-xiaomi-beryllium-ebbg.img boot-oneplus-enchilada.img boot-oneplus-fajita.img sourceparts-pocketpc.img.xz
+all: pine64-pinephone.img.xz pine64-pinetab.img.xz purism-librem5.tar.xz boot-xiaomi-beryllium-tianma.img boot-xiaomi-beryllium-ebbg.img boot-oneplus-enchilada.img boot-oneplus-fajita.img boot-xiaomi-surya.img sourceparts-pocketpc.img.xz
 
 
 pine64-pinephone.img: fat-pine64-pinephone.img u-boot-sunxi-with-spl.bin
@@ -98,6 +98,12 @@ kernel-oneplus-enchilada.gz-dtb: kernel-sdm845.gz dtbs/sdm845/sdm845-oneplus-enc
 
 kernel-oneplus-fajita.gz-dtb: kernel-sdm845.gz dtbs/sdm845/sdm845-oneplus-fajita.dtb
 	cat kernel-sdm845.gz dtbs/sdm845/sdm845-oneplus-fajita.dtb > $@
+
+kernel-xiaomi-surya-tianma.gz-dtb: kernel-sm7150.gz dtbs/sm7150/sm7150-xiaomi-surya-tianma.dtb
+	cat kernel-sm7150.gz dtbs/sm7150/sm7150-xiaomi-surya-tianma.dtb > $@
+
+kernel-xiaomi-surya-huaxing.gz-dtb: kernel-sm7150.gz dtbs/sm7150/sm7150-xiaomi-surya-huaxing.dtb
+	cat kernel-sm7150.gz dtbs/sm7150/sm7150-xiaomi-surya-huaxing.dtb > $@
 
 boot-%.img: initramfs-%.gz kernel-%.gz-dtb
 	rm -f $@
@@ -196,6 +202,16 @@ kernel-sdm845.gz: src/linux-sdm845
 	@cp build/linux-sdm845/arch/arm64/boot/Image.gz $@
 	@cp build/linux-sdm845/arch/arm64/boot/dts/qcom/sdm845-{xiaomi-beryllium-*,oneplus-enchilada,oneplus-fajita}.dtb dtbs/sdm845/
 
+kernel-sm7150.gz: src/linux-sm7150
+	@echo "MAKE  $@"
+	@mkdir -p build/linux-sm7150
+	@mkdir -p dtbs/sm7150
+	@$(MAKE) -C src/linux-sm7150 O=../../build/linux-sm7150 $(CROSS_FLAGS) defconfig sm7150.config
+	@printf "CONFIG_USB_ETH=n" >> build/linux-sm7150/.config
+	@$(MAKE) -C src/linux-sm7150 O=../../build/linux-sm7150 $(CROSS_FLAGS)
+	@cp build/linux-sm7150/arch/arm64/boot/Image.gz $@
+	@cp build/linux-sm7150/arch/arm64/boot/dts/qcom/sm7150-{xiaomi-surya-*}.dtb dtbs/sm7150/
+
 dtbs/sdm845/sdm845-xiaomi-beryllium-ebbg.dtb: kernel-sdm845.gz
 
 dtbs/sdm845/sdm845-xiaomi-beryllium-tianma.dtb: kernel-sdm845.gz
@@ -203,6 +219,10 @@ dtbs/sdm845/sdm845-xiaomi-beryllium-tianma.dtb: kernel-sdm845.gz
 dtbs/sdm845/sdm845-oneplus-enchilada.dtb: kernel-sdm845.gz
 
 dtbs/sdm845/sdm845-oneplus-fajita.dtb: kernel-sdm845.gz
+
+dtbs/sm7150/sm7150-xiaomi-surya-huaxing.dtb: kernel-sm7150.gz
+
+dtbs/sm7150/sm7150-xiaomi-surya-tianma.dtb: kernel-sm7150.gz
 
 %.scr: src/%.txt
 	@echo "MKIMG $@"
@@ -277,6 +297,12 @@ src/linux-sdm845:
 	@mkdir src/linux-sdm845
 	@wget -c https://gitlab.com/sdm845-mainline/linux/-/archive/b7a1e57f78d690d02aff902114bf2f6ca978ecfe/linux-b7a1e57f78d690d02aff902114bf2f6ca978ecfe.tar.gz
 	@tar -xf linux-b7a1e57f78d690d02aff902114bf2f6ca978ecfe.tar.gz --strip-components 1 -C src/linux-sdm845
+
+src/linux-sm7150:
+	@echo "WGET linux-sm7150"
+	@mkdir src/linux-sm7150
+	@wget -c https://github.com/sm7150-mainline/linux/archive/refs/tags/v6.7.4-r0.tar.gz
+	@tar -xf v6.7.4-r0.tar.gz --strip-components 1 -C src/linux-sm7150
 
 src/arm-trusted-firmware:
 	@echo "WGET  arm-trusted-firmware"

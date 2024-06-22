@@ -1,4 +1,4 @@
 PLATFORM=xiaomi-surya
 MANUFACTURER=Xiaomi
 PRODUCT="POCO X3 NFC"
-EMMC=/dev/sda16
+EMMC=/dev/block/sda16
