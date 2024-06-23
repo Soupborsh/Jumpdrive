@@ -301,8 +301,8 @@ src/linux-sdm845:
 src/linux-sm7150:
 	@echo "WGET linux-sm7150"
 	@mkdir src/linux-sm7150
-	@wget -c https://github.com/sm7150-mainline/linux/archive/refs/tags/v6.7.4-r0.tar.gz
-	@tar -xf v6.7.4-r0.tar.gz --strip-components 1 -C src/linux-sm7150
+	@wget -c https://github.com/Soupborsh/linux/archive/refs/tags/v6.9.3-release.tar.gz
+	@tar -xf v6.9.3-release.tar.gz --strip-components 1 -C src/linux-sm7150
 
 src/arm-trusted-firmware:
 	@echo "WGET  arm-trusted-firmware"
@@ -332,8 +332,8 @@ src/u-boot-pocketpc:
 src/busybox:
 	@echo "WGET  busybox"
 	@mkdir src/busybox
-	@wget https://www.busybox.net/downloads/busybox-1.32.0.tar.bz2
-	@tar -xf busybox-1.32.0.tar.bz2 --strip-components 1 -C src/busybox
+	@wget https://www.busybox.net/downloads/busybox-1.36.1.tar.bz2
+	@tar -xf busybox-1.36.1.tar.bz2 --strip-components 1 -C src/busybox
 
 .PHONY: clean cleanfast purism-librem5
 
