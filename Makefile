@@ -113,7 +113,7 @@ boot-%.img: initramfs-%.gz kernel-%.gz-dtb
 	$(eval RAMDISK := $(shell cat src/deviceinfo_$* | grep ramdisk | cut -d "\"" -f 2))
 	$(eval TAGS := $(shell cat src/deviceinfo_$* | grep tags | cut -d "\"" -f 2))
 	$(eval PAGESIZE := $(shell cat src/deviceinfo_$* | grep pagesize | cut -d "\"" -f 2))
-	mkbootimg --kernel kernel-$*.gz-dtb --ramdisk initramfs-$*.gz --base $(BASE) --second_offset $(SECOND) --kernel_offset $(KERNEL) --ramdisk_offset $(RAMDISK) --tags_offset $(TAGS) --pagesize $(PAGESIZE) --cmdline console=ttyMSM0,115200 -o $@
+	mkbootimg --kernel kernel-$*.gz-dtb --ramdisk initramfs-$*.gz --base $(BASE) --second_offset $(SECOND) --kernel_offset $(KERNEL) --ramdisk_offset $(RAMDISK) --tags_offset $(TAGS) --pagesize $(PAGESIZE) -o $@
 
 %.img.xz: %.img
 	@echo "XZ    $@"
@@ -210,7 +210,8 @@ kernel-sm7150.gz: src/linux-sm7150
 	@printf "CONFIG_USB_ETH=n" >> build/linux-sm7150/.config
 	@$(MAKE) -C src/linux-sm7150 O=../../build/linux-sm7150 $(CROSS_FLAGS)
 	@cp build/linux-sm7150/arch/arm64/boot/Image.gz $@
-	@cp build/linux-sm7150/arch/arm64/boot/dts/qcom/sm7150-{xiaomi-surya-*}.dtb dtbs/sm7150/
+	@cp build/linux-sm7150/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-huaxing.dtb dtbs/sm7150/
+	@cp build/linux-sm7150/arch/arm64/boot/dts/qcom/sm7150-xiaomi-surya-tianma.dtb dtbs/sm7150/
 
 dtbs/sdm845/sdm845-xiaomi-beryllium-ebbg.dtb: kernel-sdm845.gz
 

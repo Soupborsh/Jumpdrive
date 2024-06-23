@@ -36,7 +36,19 @@ In case eMMC isn't showing up try to charge your battery and try again. There ar
 
 Extract the downloaded JumpDrive release archive for the Librem 5, put the device into flash mode, then run the `boot-purism-librem5.sh` script from the release.
 
-### Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T
+### POCO X3 NFC
+
+You may need to erase dtbo in order to boot. Guide taken from [wiki.postmarketos.org](https://wiki.postmarketos.org/wiki/Xiaomi_POCO_X3_NFC_(xiaomi-surya)):
+
+    To boot Linux, you'll have to erase the dtbo partition. It is recommended to back it up first if you want to boot Android again
+
+    Run dd if=/dev/block/by-name/dtbo of=/sdcard/dtbo.img from a rooted shell on your phone and pull it with adb pull /sdcard/dtbo.img to your computer.
+    Boot into bootloader mode
+    Erase the dtbo partition with fastboot erase dtbo
+
+    To restore the partition flash it with fastboot flash dtbo dtbo.img
+
+### Xiaomi Pocophone F1 / OnePlus 6 / OnePlus 6T / POCO X3 NFC
 
 Boot the image using `fastboot boot`.
 
