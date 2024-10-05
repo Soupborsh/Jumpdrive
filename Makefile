@@ -302,8 +302,8 @@ src/linux-sdm845:
 src/linux-sm7150:
 	@echo "WGET linux-sm7150"
 	@mkdir src/linux-sm7150
-	@wget -c https://github.com/Soupborsh/linux/archive/refs/tags/v6.9.3-release.tar.gz
-	@tar -xf v6.9.3-release.tar.gz --strip-components 1 -C src/linux-sm7150
+	@wget -c https://github.com/Soupborsh/linux/archive/refs/tags/v6.11-alpha.tar.gz
+	@tar -xf v6.11-alpha.tar.gz --strip-components 1 -C src/linux-sm7150
 
 src/arm-trusted-firmware:
 	@echo "WGET  arm-trusted-firmware"
